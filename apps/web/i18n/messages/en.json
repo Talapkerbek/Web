@@ -1,0 +1,38 @@
+{
+  "HomePage": {
+    "chooseBestUniversity": "Choose the best\n university and\n major for you",
+    "openCareerPath": "Open your path\n to a successful career",
+    "takeCareerTest": "Take a career guidance test\n and find your calling",
+    "estimateGrantChances": "Estimate your chances\n of getting a scholarship",
+    "raschet": "The calculation is based on\n actual data from previous years",
+    "viewOnMap": "See where your university is\n located on the map",
+    "searchUniversities": "Find a suitable university —\n filter by city and score thresholds",
+    "chooseCity": "Choose a city that’s comfortable\n for living and studying"
+  },
+
+  "CityPages": {
+    "cities": "Cities"
+  },
+
+  "UniversitySearchPage": {
+    "title": "Search Universities",
+    "queryLabel": "Search",
+    "queryPlaceholder": "Enter university name...",
+    "cityLabel": "City",
+    "cityPlaceholder": "Enter city ID or name...",
+    "sortLabel": "Sort by",
+    "sortPlaceholder": "Select sort field",
+    "sortOptions": {
+      "studentCount": "Student count",
+      "cost": "Cost per year",
+      "programs": "Programs count",
+      "untScore": "UNT score"
+    },
+    "hasLicense": "Has license",
+    "hasHousing": "Has housing",
+    "hasMilitaryDepartment": "Has military department",
+    "isSortAscending": "Sort ascending",
+    "universities": "Universities",
+    "found": "Found {count} universities"
+  }
+}
