@@ -17,6 +17,8 @@ import {
 import Link from "next/link";
 import {Button} from "@workspace/ui/components/button";
 import {Avatar, AvatarFallback, AvatarImage} from "@workspace/ui/components/avatar";
+import {signOut, useSession} from "next-auth/react";
+import {env} from "@/lib/env";
 
 interface IUserDropdownProps  {
     email: string;
@@ -25,8 +27,13 @@ interface IUserDropdownProps  {
 }
 
 export default function UserDropdown({email, name, image}: IUserDropdownProps) {
-    const handleSignOut = () => {
 
+    const handleSignOut =  async () => {
+        const endSessionUrl = `${env.NEXT_PUBLIC_IDENTITY_URL}/connect/endsession?post_logout_redirect_uri=${encodeURIComponent(env.NEXT_PUBLIC_NEXTAUTH_URL)}/`;
+
+        await signOut({ redirect: false });
+
+        window.location.href = endSessionUrl;
     }
 
     return (

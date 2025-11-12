@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "chooseBestUniversity": "Choose the best\n university and\n major for you",
+    "chooseBestUniversity": "Choose the best university and major for you",
     "openCareerPath": "Open your path\n to a successful career",
     "takeCareerTest": "Take a career guidance test\n and find your calling",
     "estimateGrantChances": "Estimate your chances\n of getting a scholarship",
@@ -12,6 +12,30 @@
 
   "CityPages": {
     "cities": "Cities"
+  },
+
+  "NavBar": {
+    "title": "Talapker",
+    "forStudents": "For Students",
+    "about": "About",
+
+    "universitiesTitle": "Universities",
+    "universitiesDesc": "Discover top universities that match your goals and dreams.",
+
+    "careerTitle": "Career",
+    "careerDesc": "Find the right specialization and build your future path.",
+
+    "platformTitle": "The Talapker Platform",
+    "platformDesc": "Connect with universities and mentors on Talapker’s integrated platform.",
+
+    "chatTitle": "Chat",
+    "chatDesc": "Engage directly with ambassadors and students from your dream universities.",
+
+    "communityTitle": "Community",
+    "communityDesc": "Join a growing student community and learn from those with real experience.",
+
+    "assistantTitle": "Assistant",
+    "assistantDesc": "Experience a perfect balance of human guidance and AI support."
   },
 
   "UniversitySearchPage": {

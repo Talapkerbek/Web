@@ -5,7 +5,7 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import Image from "next/image";
 import {getTranslations} from "next-intl/server";
 import {getServerLang} from "@/lib/lang/getServerLang";
-import {ArrowRightIcon, School2} from "lucide-react";
+import {ArrowRightIcon, School2, SquareLibrary} from "lucide-react";
 import {cn} from "@workspace/ui/lib/utils";
 
 type featureProp = {
@@ -14,7 +14,7 @@ type featureProp = {
     icon: string;
 }
 
-export default async function Home() {
+export default async function ForStudentsPage() {
     const t = await getTranslations("HomePage");
     const lang = await getServerLang()
 
@@ -50,9 +50,9 @@ export default async function Home() {
                     <Card className={"relative hover:shadow-lg transition-shadow col-span-2 xl:col-span-5 flex-col justify-between"}>
                         <div className={"grid grid-cols-10"}>
                             <div className={"col-span-5 lg:col-span-4"}/>
-                            <div className={"col-span-2 lg:col-span-3 flex flex-col justify-between"}>
+                            <div className={"col-span-5 lg:col-span-6 flex flex-col justify-between"}>
                                 <CardHeader>
-                                    <CardTitle className={"text-2xl tracking-normal md:text-5xl lg:text-4xl font-bold"}>{t("chooseBestUniversity")}</CardTitle>
+                                    <CardTitle className={"text-2xl tracking-normal md:text-5xl lg:text-4xl xl:text-5xl font-bold"}>{t("chooseBestUniversity")}</CardTitle>
                                 </CardHeader>
                             </div>
                         </div>
@@ -60,12 +60,12 @@ export default async function Home() {
                         <CardContent className={"flex flex-col lg:flex-row justify-end items-end gap-2 ml-5"}>
                             <Link href={`/${lang}/grant-changes`} className={buttonVariants({
                             })}>
-                                <School2/> Смотреть ВУЗы
+                                <School2/> ВУЗы
                             </Link>
 
                             <Link href={`/${lang}/grant-changes`} className={buttonVariants({
                             })}>
-                                <School2/> Смотреть ВУЗы
+                                <SquareLibrary/> Специальности
                             </Link>
                         </CardContent>
 
@@ -74,7 +74,7 @@ export default async function Home() {
                             alt="Student"
                             width={320}
                             height={620}
-                            className="absolute bottom-0 left-0 rounded-2xl w-60 sm:w-70 md:w-80"
+                            className="absolute bottom-0 left-0 rounded-2xl max-h-[86%] w-auto"
                         />
                     </Card>
 
@@ -99,7 +99,7 @@ export default async function Home() {
 
                             <CardHeader>
                                 <CardTitle className={"text-xl md:text-2xl font-bold"}>
-                                        {t("estimateGrantChances")}
+                                    {t("estimateGrantChances")}
                                 </CardTitle>
 
                                 <CardDescription className={"text-[16px]"}>
