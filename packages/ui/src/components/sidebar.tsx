@@ -513,7 +513,7 @@ function SidebarMenuButton({
 
   const button = (
     <Comp
-      data-slot="sidebar-menu-button"
+      data-slot="sidebar-menu-button cursor-pointer"
       data-sidebar="menu-button"
       data-size={size}
       data-active={isActive}

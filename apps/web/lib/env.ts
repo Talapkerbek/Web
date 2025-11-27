@@ -10,13 +10,13 @@ export const env = createEnv({
         NEXT_PUBLIC_CLOUDFLARE_R2_PUBLIC_URL: z.string().min(1),
         NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_NAME: z.string().min(1),
         NEXT_PUBLIC_NEXTAUTH_URL: z.string().min(1),
-        NEXT_PUBLIC_IDENTITY_URL: z.string().min(1),
+        NEXT_PUBLIC_BACKEND_URL: z.string().min(1),
     },
 
     experimental__runtimeEnv: {
         NEXT_PUBLIC_CLOUDFLARE_R2_PUBLIC_URL: process.env.NEXT_PUBLIC_CLOUDFLARE_R2_PUBLIC_URL,
         NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_NAME: process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_NAME,
         NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
-        NEXT_PUBLIC_IDENTITY_URL: process.env.NEXT_PUBLIC_IDENTITY_URL,
+        NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
     }
 });

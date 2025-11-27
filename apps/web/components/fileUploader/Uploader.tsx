@@ -12,6 +12,8 @@ import {toast} from "sonner";
 import {env} from "@/lib/env";
 import {cn} from "@workspace/ui/lib/utils";
 import {Card, CardContent} from "@workspace/ui/components/card";
+import {createApi} from "@/lib/axios";
+import {useSession} from "next-auth/react";
 
 interface IUploaderState {
     id: string | null;
@@ -32,6 +34,9 @@ interface IUploaderProps {
 }
 
 const Uploader = ({value, onChange, fileTypeAccepted} : IUploaderProps) => {
+    const {data: session} = useSession()
+
+
     const [fileState, setFileState] = useState<IUploaderState>({
         error: false,
         file: null,
@@ -44,70 +49,51 @@ const Uploader = ({value, onChange, fileTypeAccepted} : IUploaderProps) => {
         key: value
     });
 
-    const uploadFile = useCallback(async(file: File) => {
-        setFileState(prevState => ({...prevState, uploading: true, progress: 0}));
+    console.log(fileState.objectUrl)
 
-        try {
-            const presignedResponse = await fetch("/api/s3/upload", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
+
+    const uploadFile = useCallback(
+        async (file: File) => {
+            setFileState(prev => ({ ...prev, uploading: true, progress: 0 }));
+
+            try {
+                const api = createApi()
+                const headers = {
+                    headers: {
+                        Authorization: `Bearer ${session?.accessToken}`,
+                    }
+                }
+
+                const presignedResponse = await api.post("/file/get-presigned-url", {
                     fileName: file.name,
-                    contentType: file.type,
-                    size: file.size,
-                    isImage: fileTypeAccepted === "image"
-                })
-            })
+                    contentType: file.type
+                }, headers);
 
-            if (!presignedResponse.ok) {
-                toast.error("Failed to generate presigned URL")
-                setFileState(prevState => ({...prevState, uploading: false, progress: 0, error: true}));
-                return;
+                const { presignedUrl, key } = presignedResponse.data;
+
+                await api.put(presignedUrl, file, {
+                    headers: {
+                        "Content-Type": file.type,
+                    },
+                    onUploadProgress: (event) => {
+                        if (event.total) {
+                            const progress = Math.round((event.loaded / event.total) * 100);
+                            setFileState(prev => ({ ...prev, progress }));
+                        }
+                    },
+                });
+
+                setFileState(prev => ({ ...prev, progress: 100, uploading: false, key }));
+                onChange?.(key);
+                toast.success("File uploaded successfully.");
+            } catch (err) {
+                console.error(err);
+                toast.error("Something went wrong while uploading.");
+                setFileState(prev => ({ ...prev, progress: 0, uploading: false, error: true }));
             }
-
-            const {presignedUrl, key} = await presignedResponse.json();
-
-            await new Promise<void>((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-
-                xhr.upload.onprogress = (event) => {
-                    if (event.lengthComputable) {
-                        const progressPercentage = (event.loaded / event.total) * 100;
-                        setFileState(prevState => ({...prevState, progress: Math.round(progressPercentage)}));
-                    }
-                }
-
-                xhr.onload = () => {
-                    if (xhr.status === 200 || xhr.status === 204) {
-                        setFileState(prevState => ({...prevState, progress: 100, uploading: false, key}));
-
-                        onChange?.(key)
-
-                        toast.success("File uploaded successfully.");
-                        resolve()
-                    }
-                    else {
-                        reject(new Error("Upload failed."));
-                    }
-                }
-
-                xhr.onerror = (event) => {
-                    reject(new Error("Upload failed."));
-                }
-
-                xhr.open("PUT", presignedUrl);
-                xhr.setRequestHeader("Content-Type", file.type);
-                xhr.send(file)
-            })
-
-
-
-
-        } catch (e) {
-            toast.success("Something went wrong while uploading.");
-            setFileState(prevState => ({...prevState, progress: 0, uploading: false, error: true}));
-        }
-    }, [fileTypeAccepted, onChange])
+        },
+        [fileTypeAccepted, onChange]
+    );
 
     const onDrop = useCallback(async (acceptedFiles : File[]) => {
         if (acceptedFiles.length > 0) {
@@ -142,29 +128,6 @@ const Uploader = ({value, onChange, fileTypeAccepted} : IUploaderProps) => {
         if (fileState.isDeleting || !fileState.objectUrl) return;
 
         try {
-            setFileState(prevState => ({...prevState, isDeleting: true}));
-
-            const res = await fetch("/api/s3/delete", {
-                method: "DELETE",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    key: fileState.key
-                })
-            })
-
-            if (!res.ok) {
-                toast.error("Failed to delete file.");
-                setFileState(prevState => ({...prevState, isDeleting: true, error: true}));
-
-                return;
-            }
-
-            if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")){
-                URL.revokeObjectURL(fileState.objectUrl)
-            }
-
-            onChange?.("")
-
             setFileState({
                 error: false,
                 file: null,
@@ -176,6 +139,7 @@ const Uploader = ({value, onChange, fileTypeAccepted} : IUploaderProps) => {
             });
 
             toast.success("File removed successfully")
+            onChange?.("")
         }
         catch (e) {
             toast.error("Error during removing file. Please try again.");
@@ -238,7 +202,7 @@ const Uploader = ({value, onChange, fileTypeAccepted} : IUploaderProps) => {
 
     return (
         <Card {...getRootProps()} className={cn(
-            "relative border-2 border-dashed transition-colors duration-200 w-full h-64",
+            "relative border-2 border-dashed transition-colors duration-200 w-full h-64 cursor-pointer",
             isDragActive && "border-primary bg-primary/10 border-solid",
             !isDragActive && "border-border hover:border-primary",
         )}>

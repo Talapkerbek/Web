@@ -2,6 +2,7 @@
 import {jwtDecode} from "jwt-decode";
 import {env} from "../env";
 import {generateS3UrlFromKey} from "@/lib/generateS3UrlFromKey";
+import {signIn, signOut} from "next-auth/react";
 
 type IdTokenType = {
     firstName: string
@@ -18,7 +19,7 @@ export const authOptions = {
             name: "School Identity Server",
             type: "oauth",
             clientId: "talapker-nextjs",
-            wellKnown: `${env.NEXT_PUBLIC_IDENTITY_URL}/.well-known/openid-configuration`,
+            wellKnown: `${env.NEXT_PUBLIC_BACKEND_URL}/.well-known/openid-configuration`,
             authorization: { params: { scope: "openid IdentityServer.fullaccess Institutions.fullaccess offline_access", culture: "kk" } },
             idToken: true,
             checks: ["pkce", "state"],
@@ -41,16 +42,20 @@ export const authOptions = {
     callbacks: {
         async jwt({ token, account } : any) {
             if (account) {
+
+                const decoded = jwtDecode(account.access_token);
+
                 token.accessToken = account.access_token ?? "";
                 token.idToken = account.id_token ?? "";
                 token.sub = account.sub ?? "";
                 token.role = account.role ?? "";
                 token.refresh_token = account.refresh_token;
-                token.expires_at = account.expires_in;
+                token.expires_at = (decoded.exp ?? 1) * 1000;
             }
 
             const now = Math.floor(Date.now());
-            if (token.exp && now < token.exp * 1000) return token;
+
+            if (token.expires_at && now < token.expires_at) return token;
 
             console.log("[AUTH]: Refreshing token");
 
@@ -63,8 +68,9 @@ export const authOptions = {
                     refresh_token: token.refresh_token
                 });
 
+                console.log(reqBody)
                 const response = await axios.post(
-                    `${process.env.IDENTITY_URL}/connect/token`,
+                    `${env.NEXT_PUBLIC_BACKEND_URL}/connect/token`,
                     reqBody,
                     {
                         headers: { "Content-Type": "application/x-www-form-urlencoded" }
@@ -74,7 +80,10 @@ export const authOptions = {
 
                 const refreshed = response.data;
 
-                if (response.status != 200) throw refreshed;
+                if (response.status != 200) {
+                    token.error = "RefreshAccessTokenError"
+                    return token
+                }
 
                 console.log("[AUTH]: Successfully refreshed token!");
 
@@ -83,7 +92,7 @@ export const authOptions = {
                 token.accessToken = refreshed.access_token;
                 token.idToken = refreshed.id_token;
                 token.refresh_token = refreshed.refresh_token;
-                token.exp = decoded.exp! * 1000
+                token.expires_at = decoded.exp! * 1000
 
                 return token;
             } catch (error) {
@@ -97,20 +106,25 @@ export const authOptions = {
                 return session;
             }
 
-            const decoded = jwtDecode(token.accessToken)
+            if (token.error) {
+                session.error = token.error;
+            }
+
+            const accessTokendecoded : {sub: string; tenantId?: string} = jwtDecode(token.accessToken)
             const idTokenDecoded : IdTokenType = jwtDecode(token.idToken)
 
+            console.log(idTokenDecoded)
             session.user = {
-                sub: decoded.sub,
+                sub: accessTokendecoded.sub,
                 firstName: idTokenDecoded.firstName ?? "",
                 lastName: idTokenDecoded.lastName ?? "",
                 email: idTokenDecoded.email ?? "",
-                image: `${generateS3UrlFromKey(idTokenDecoded.image)}`,
+                image: idTokenDecoded.image,
                 name: `${idTokenDecoded.firstName ?? ""} ${idTokenDecoded.lastName ?? ""}`.trim(),
                 role: idTokenDecoded.role,
+                tenantId: accessTokendecoded.tenantId ?? undefined,
             };
 
-            session.exp = decoded.exp! * 1000
             session.accessToken = token.accessToken;
             session.idToken = token.idToken;
             session.refresh_token = token.refresh_token;
@@ -121,10 +135,5 @@ export const authOptions = {
 
     session: {
         strategy: 'jwt',
-    },
-    events: {
-        async signOut({ token } : {token: any}) {
-            localStorage.removeItem("notifyToken");
-        },
     }
 }

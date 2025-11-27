@@ -1,63 +1,87 @@
 {
   "HomePage": {
-    "chooseBestUniversity": "Ең жақсы\n университетті\n және мамандықты\n өзіңізге таңдаңыз",
-    "openCareerPath": "Сәтті карьера жолын ашыңыз",
-    "takeCareerTest": "Мамандыққа бағдар беретін тесттен өтіңіз\n және өз талантыңызды табыңыз",
-    "estimateGrantChances": "Грантқа түсу мүмкіндігіңізді бағалаңыз",
-    "raschet": "Есептеу өткен жылдардың\n нақты деректері негізінде жүргізіледі",
-    "viewOnMap": "Университеттің қай жерде екенін\n картада көріңіз",
-    "searchUniversities": "Таңдаулы оқу орнын табыңыз —\n қалалар мен балл шектеріне қарай сүзгілеңіз",
-    "chooseCity": "Тұрмысқа және оқуға ыңғайлы\n қаланы таңдаңыз"
+    "chooseBestUniversity": "Өзіңізге үйлесімді университет пен мамандықты таңдаңыз",
+    "openCareerPath": "Сәтті мансап жолыңызды ашыңыз",
+    "takeCareerTest": "Кәсіби бағдар тестінен өтіп, өз шақырыңызды табыңыз",
+    "estimateGrantChances": "Грантқа түсу мүмкіндіктеріңізді бағалаңыз",
+    "raschet": "Есептеу алдыңғы жылдардың нақты деректері негізінде жасалады",
+    "viewOnMap": "Университетіңіздің картадағы орналасун көріңіз",
+    "searchUniversities": "Қолайлы университетті табыңыз — қала және балл бойынша сүзгілеңіз",
+    "chooseCity": "Тұруға және оқуға ыңғайлы қаланы таңдаңыз"
   },
-
   "CityPages": {
     "cities": "Қалалар"
   },
-
   "NavBar": {
-    "title": "Талапкер",
-    "forStudents": "Талапкерлерге",
+    "title": "Talapker",
+    "forStudents": "Студенттерге",
     "about": "Біз туралы",
-
     "universitiesTitle": "Университеттер",
-    "universitiesDesc": "Арманыңдағы мақсаттарыңа сай келетін ең үздік университетті таңда.",
-
-    "careerTitle": "Мамандық таңдау",
-    "careerDesc": "Өз бағытыңды анықтап, болашақ кәсібіңе жол аш.",
-
-    "platformTitle": "Talapker платформасы",
-    "platformDesc": "Біріктірілген Talapker платформасында университеттер мен тәлімгерлермен байланыс орнат.",
-
+    "universitiesDesc": "Мақсаттарыңызға және армандарыңызға сәйкес келетін үздік университеттерді табыңыз.",
+    "careerTitle": "Мансап",
+    "careerDesc": "Дұрыс мамандықты тауып, болашақ жолыңызды құрыңыз.",
+    "platformTitle": "Talapker Платформасы",
+    "platformDesc": "Talapker платформасы арқылы университеттер мен тәлімгерлермен байланысыңыз.",
     "chatTitle": "Чат",
-    "chatDesc": "Армандаған университетіңнің студенттерімен және елшілерімен тікелей сөйлес.",
-
+    "chatDesc": "Армандаған университеттеріңіздің елшілері мен студенттерімен тікелей сөйлесіңіз.",
     "communityTitle": "Қауымдастық",
-    "communityDesc": "Тәжірибелі студенттерден көмек алып, білім алушылар қауымдастығына қосыл.",
-
+    "communityDesc": "Өсіп келе жатқан студенттік қауымдастыққа қосылып, нақты тәжірибесі бар адамдардан үйреніңіз.",
     "assistantTitle": "Көмекші",
-    "assistantDesc": "Адам мен жасанды интеллект көмегінің тепе-теңдігін сезін."
+    "assistantDesc": "Адамның жетекшілігі мен ЖӘ-нің қолдауының тамаша үйлесімін сезініңіз."
+  },
+  "AdminDashBoard": {
+    "HomePage": "Басты бет",
+    "Dashboard": "Басқару панелі",
+    "Institutions": "Оқу орындары",
+    "CreateInstitution": "Оқу орнын құру",
+    "CreateInstitutionFormDescription": "Жаңа оқу орнын құру",
+    "UpdateInstitutionInfo": "Оқу орны ақпаратын жаңарту",
+    "UpdateInstitutionInfoDescription": "Оқу орнының жалпы ақпаратын жаңарту",
+    "Update": "Жаңарту",
+    "UniversityCreated": "Оқу орны сәтті құрылды.",
+    "NationalCode": "Ұлттық код",
+    "PrimeAdmin": "Бас әкімші",
+    "PrimeAdminAssigned": "Primary Admin assigned",
+    "PrimeAdminNotAssigned": "Бас әкімші әлі тағайындалмаған.",
+    "AssignPrimeAdmin": "Бас әкімшіні тағайындау",
+    "AssignPrimeAdminDescription": "Оқу орнына бас әкімшіні тағайындау. Бұл пайдаланушы оқу орнының негізгі менеджері болады және барлық басқару мүмкіндіктеріне ие болады.",
+    "Assign": "Тағайындау",
+    "UniversityWithSameNationalCodeAlreadyExist": "Бұл кодты оқу орны бұрыннан бар.",
+    "Users": "Қолданушылар"
   },
 
-  "UniversitySearchPage": {
-    "title": "Университеттерді іздеу",
-    "queryLabel": "Іздеу",
-    "queryPlaceholder": "Университет атауын енгізіңіз...",
-    "cityLabel": "Қала",
-    "cityPlaceholder": "Қала ID немесе атауын енгізіңіз...",
-    "sortLabel": "Сұрыптау бойынша",
-    "sortPlaceholder": "Сұрыптау өрісін таңдаңыз",
-    "sortOptions": {
-      "studentCount": "Студенттер саны",
-      "cost": "Жылдық оқу ақысы",
-      "programs": "Бағдарламалар саны",
-      "untScore": "ЕНТ минималды балы"
-    },
-    "hasLicense": "Лицензиясы бар",
-    "hasHousing": "Жатақханасы бар",
-    "hasMilitaryDepartment": "Әскери кафедрасы бар",
-    "isSortAscending": "Өсу ретімен",
-    "universities": "Университтер",
-    "found": "{count} университет табылды"
+  "InstitutionAdminMenu": {
+    "Analytics": "Аналитика",
+    "Insights": "Инсайттар",
+    "Conversations": "Сұхбаттар",
+    "Ambassadors": "Елшілер",
+    "Prospects": "Перспективалар",
+    "Moderation": "Модерация",
+    "Community": "Қауымдастық",
+    "Events": "Оқиғалар",
+    "Customization": "Теңшеу",
+    "AdminUsers": "Әкімшілер",
+    "Settings": "Параметрлер",
+    "Engagement": "Қатысу",
+    "Prospect": "Перспектива",
+    "Ambassador": "Елші",
+    "Applications": "Өтінімдер",
+    "Manage": "Басқару",
+    "Inbox": "Кірген хабарлар",
+    "Outbox": "Жіберілген хабарлар",
+    "Invitations": "Шақырулар",
+    "Timesheet": "Уақыт кестесі",
+    "Invite": "Шақыру",
+    "Degrees": "Дәрежелер",
+    "Features": "Мүмкіндіктер",
+    "Content": "Контент",
+    "General": "Жалпы",
+    "Departments": "Кафедралар",
+    "EducationPrograms": "Білім беру бағдарламалары",
+    "Posts": "Жазбалар"
+  },
 
+  "Errors": {
+    "UnknownError": "Белгісіз қате орын алды"
   }
 }

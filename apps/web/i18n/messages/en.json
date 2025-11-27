@@ -38,25 +38,63 @@
     "assistantDesc": "Experience a perfect balance of human guidance and AI support."
   },
 
-  "UniversitySearchPage": {
-    "title": "Search Universities",
-    "queryLabel": "Search",
-    "queryPlaceholder": "Enter university name...",
-    "cityLabel": "City",
-    "cityPlaceholder": "Enter city ID or name...",
-    "sortLabel": "Sort by",
-    "sortPlaceholder": "Select sort field",
-    "sortOptions": {
-      "studentCount": "Student count",
-      "cost": "Cost per year",
-      "programs": "Programs count",
-      "untScore": "UNT score"
-    },
-    "hasLicense": "Has license",
-    "hasHousing": "Has housing",
-    "hasMilitaryDepartment": "Has military department",
-    "isSortAscending": "Sort ascending",
-    "universities": "Universities",
-    "found": "Found {count} universities"
+  "AdminDashBoard": {
+    "HomePage": "Home page",
+    "Dashboard": "Dashboard",
+    "Institutions": "Institutions",
+    "CreateInstitution": "Create institution",
+    "CreateInstitutionFormDescription": "Create new institution",
+
+    "UpdateInstitutionInfo": "Update institution info",
+    "UpdateInstitutionInfoDescription": "Update general info of institution",
+    "Update": "Update",
+
+    "UniversityCreated": "University has been created.",
+    "NationalCode": "National Code",
+
+    "PrimeAdmin": "Prime admin",
+    "PrimeAdminNotAssigned": "Prime admin is not assigned yet.",
+    "AssignPrimeAdmin": "Assign primary Admin",
+    "PrimeAdminAssigned": "Primary Admin assigned",
+    "AssignPrimeAdminDescription": "Assign primary admin to institution. This user will be main manager of institution with all management capabilities",
+    "Assign": "Assign",
+
+    "UniversityWithSameNationalCodeAlreadyExist": "University with that code already exists.",
+    "Users": "Users"
+  },
+
+  "InstitutionAdminMenu": {
+    "Analytics": "Analytics",
+    "Insights": "Insights",
+    "Conversations": "Conversations",
+    "Ambassadors": "Ambassadors",
+    "Prospects": "Prospects",
+    "Moderation": "Moderation",
+    "Content": "Content",
+    "Community": "Community",
+    "Events": "Events",
+    "Customization": "Customization",
+    "AdminUsers": "Admin Users",
+    "Settings": "Settings",
+    "Engagement": "Engagement",
+    "Prospect": "Prospect",
+    "Ambassador": "Ambassador",
+    "Applications": "Applications",
+    "Manage": "Manage",
+    "Inbox": "Inbox",
+    "Outbox": "Outbox",
+    "Invitations": "Invitations",
+    "Timesheet": "Timesheet",
+    "Invite": "Invite",
+    "Degrees": "Degrees",
+    "Features": "Features",
+    "General": "General",
+    "Departments": "Departments",
+    "EducationPrograms": "Education Programs",
+    "Posts": "Posts"
+  },
+
+  "Errors": {
+    "UnknownError": "Unknown error occurred"
   }
 }

@@ -19,17 +19,23 @@ import {Button} from "@workspace/ui/components/button";
 import {Avatar, AvatarFallback, AvatarImage} from "@workspace/ui/components/avatar";
 import {signOut, useSession} from "next-auth/react";
 import {env} from "@/lib/env";
+import UserRoles from "@/Data/models/UserRoles";
+import {UserDto} from "@/Data/models/UserDto";
 
-interface IUserDropdownProps  {
+interface IUser  {
     email: string;
     name: string;
     image: string;
+    role: string[]
+    tenantId?: string
 }
 
-export default function UserDropdown({email, name, image}: IUserDropdownProps) {
+export default function UserDropdown({user}: { user: IUser }) {
+
+    const {email, name, image, role, tenantId} = user
 
     const handleSignOut =  async () => {
-        const endSessionUrl = `${env.NEXT_PUBLIC_IDENTITY_URL}/connect/endsession?post_logout_redirect_uri=${encodeURIComponent(env.NEXT_PUBLIC_NEXTAUTH_URL)}/`;
+        const endSessionUrl = `${env.NEXT_PUBLIC_BACKEND_URL}/connect/endsession?post_logout_redirect_uri=${encodeURIComponent(env.NEXT_PUBLIC_NEXTAUTH_URL)}/`;
 
         await signOut({ redirect: false });
 
@@ -68,18 +74,22 @@ export default function UserDropdown({email, name, image}: IUserDropdownProps) {
                             <span>Home</span>
                         </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/course">
-                            <BookOpen size={16} className="opacity-60" aria-hidden="true" />
-                            <span>Courses</span>
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/admin">
-                            <LayoutDashboardIcon size={16} className="opacity-60" aria-hidden="true" />
-                            <span>Dashboard</span>
-                        </Link>
-                    </DropdownMenuItem>
+                    {role.includes(UserRoles.SystemAdmin) && (
+                        <DropdownMenuItem asChild>
+                            <Link href="/admin">
+                                <LayoutDashboardIcon size={16} className="opacity-60" aria-hidden="true" />
+                                <span>Admin</span>
+                            </Link>
+                        </DropdownMenuItem>
+                    )}
+                    {role.includes(UserRoles.TenantAdmin) && (
+                        <DropdownMenuItem asChild>
+                            <Link href={`/institution-admin/${tenantId}`}>
+                                <LayoutDashboardIcon size={16} className="opacity-60" aria-hidden="true" />
+                                <span>Institution Management</span>
+                            </Link>
+                        </DropdownMenuItem>
+                    )}
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />

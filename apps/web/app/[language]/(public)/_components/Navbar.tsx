@@ -237,7 +237,7 @@ const Navbar = () => {
                     )}
 
                     {status === "authenticated" && session && (
-                        <UserDropdown email={session.user.email ?? ""} name={session.user.firstName ?? "" + session.user.lastName ?? ""} image={session.user.image ?? ""} />
+                        <UserDropdown user={session.user} />
                     )}
 
                     {status === "unauthenticated" && (
